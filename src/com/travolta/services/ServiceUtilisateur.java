@@ -173,49 +173,49 @@ public class ServiceUtilisateur {
         
     
     
-    //Signup
-    public void signup(TextField nom,TextField prenom,TextField adresse,TextField mdp, ComboBox<String> role , Resources res ) {
-        
-     
-        
-        String url = Statics.BASE_URL+"/user/signup?username="+nom.getText().toString()+"&prenom="+prenom.getText().toString()+"&adresse="+adresse.getText().toString()+
-                "&mdp="+mdp.getText().toString()+"&roles="+role.getSelectedItem().toString();
-        
-        req.setUrl(url);
-       
-        //Control saisi
-        if(nom.getText().equals(" ") && prenom.getText().equals(" ") && adresse.getText().equals(" ") && mdp.getText().equals(" ")) {
-            
-            Dialog.show("Erreur","Veuillez remplir les champs","OK",null);
-            
-        }
-        
-        //hethi wa9t tsir execution ta3 url 
-        req.addResponseListener((e)-> {
-         
-            //njib data ly7atithom fi form 
-            byte[]data = (byte[]) e.getMetaData();//lazm awl 7aja n7athrhom ke meta data ya3ni na5o id ta3 kol textField 
-            String responseData = new String(data);//ba3dika na5o content 
-            
-            System.out.println("data ===>"+responseData);
-        }
-        );
-        
-        
-        //ba3d execution ta3 requete ely heya url nestanaw response ta3 server.
-        NetworkManager.getInstance().addToQueueAndWait(req);
-        
-            
-        
-    }
-    
-    
+//    //Signup
+//    public void signup(TextField nom,TextField prenom,TextField adresse,TextField mdp, ComboBox<String> role  ) {
+//        
+//     
+//        
+//        String url = Statics.BASE_URL+"/utilisateur/signup?username="+nom.getText().toString()+"&prenom="+prenom.getText().toString()+"&adresse="+adresse.getText().toString()+
+//                "&mdp="+mdp.getText().toString()+"&roles="+role.getSelectedItem().toString();
+//        
+//        req.setUrl(url);
+//       
+//        //Control saisi
+//        if(nom.getText().equals(" ") && prenom.getText().equals(" ") && adresse.getText().equals(" ") && mdp.getText().equals(" ")) {
+//            
+//            Dialog.show("Erreur","Veuillez remplir les champs","OK",null);
+//            
+//        }
+//        
+//        //hethi wa9t tsir execution ta3 url 
+//        req.addResponseListener((e)-> {
+//         
+//            //njib data ly7atithom fi form 
+//            byte[]data = (byte[]) e.getMetaData();//lazm awl 7aja n7athrhom ke meta data ya3ni na5o id ta3 kol textField 
+//            String responseData = new String(data);//ba3dika na5o content 
+//            
+//            System.out.println("data ===>"+responseData);
+//        }
+//        );
+//        
+//        
+//        //ba3d execution ta3 requete ely heya url nestanaw response ta3 server.
+//        NetworkManager.getInstance().addToQueueAndWait(req);
+//        
+//            
+//        
+//    }
+//    
+//    
     //SignIn
     
     public void signin(TextField adresse,TextField mdp, Resources rs ) {
         
         
-        String url = Statics.BASE_URL+"/user/signin?adresse="+adresse.getText().toString()+"&mdp="+mdp.getText().toString();
+        String url = Statics.BASE_URL+"/utilisateur/signin?adresse="+adresse.getText().toString()+"&mdp="+mdp.getText().toString();
         req = new ConnectionRequest(url, false); //false ya3ni url mazlt matba3thtich lel server
         req.setUrl(url);
         

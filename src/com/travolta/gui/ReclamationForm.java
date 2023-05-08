@@ -29,6 +29,11 @@ public class ReclamationForm extends Form {
     public ReclamationForm(Form previous) {
         setTitle("Liste des reclamations");
         setLayout(BoxLayout.y());
+        
+         Button btnUtilisateur = new Button("Ajouter reclamation ");
+        
+        btnUtilisateur.addActionListener(e-> new addReclamation(this).show());
+        addAll(btnUtilisateur);
 
 //          Button btnUtilisateur = new Button("Ajouter ");
 //        

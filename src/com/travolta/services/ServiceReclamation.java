@@ -130,8 +130,8 @@ public class ServiceReclamation {
     }
 
 //     //Update 
-//    public boolean modifierUser(Utilisateur utilisateur) {
-//        String url = Statics.BASE_URL +"/UtilisateurJSON/updateUtilisateurJson/"+utilisateur.getId()+"?nom="+utilisateur.getNom()+"&Prenom="+utilisateur.getPrenom()+"&Adresse="+utilisateur.getAdresse();
+//    public boolean modifierReclamation(Reclamation reclamation) {
+//        String url = Statics.BASE_URL +"/reclamationJson/updateUtilisateurJson/"+reclamation.getId()+"?objet="+reclamation.getObjet()+"&msg="+reclamation.getMSG();
 //        req.setUrl(url);
 //        
 //        req.addResponseListener(new ActionListener<NetworkEvent>() {

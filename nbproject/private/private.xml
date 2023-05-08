@@ -4,10 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/hp/Documents/NetBeansProjects/Travolta/src/com/travolta/gui/AdminForm.java</file>
-            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Travolta/src/com/travolta/gui/modifierUtilisateur.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Travolta/src/Travolta/MyApplication.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Travolta/src/com/travolta/entites/Utilisateur.java</file>
             <file>file:/C:/Users/hp/Documents/NetBeansProjects/Travolta/src/com/travolta/gui/addUser.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Travolta/src/com/travolta/gui/SignUpForm.java</file>
             <file>file:/C:/Users/hp/Documents/NetBeansProjects/Travolta/src/com/travolta/gui/UtilisateurForm.java</file>
             <file>file:/C:/Users/hp/Documents/NetBeansProjects/Travolta/src/com/travolta/services/ServiceUtilisateur.java</file>
+            <file>file:/C:/Users/hp/Documents/NetBeansProjects/Travolta/src/Travolta/SignUp.java</file>
         </group>
     </open-files>
 </project-private>

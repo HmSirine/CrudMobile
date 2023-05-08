@@ -4,92 +4,93 @@
  */
 package com.travolta.gui;
 
-import com.codename1.components.FloatingHint;
 import com.codename1.ui.Button;
-import com.codename1.ui.ComboBox;
-import com.codename1.ui.Container;
+import com.codename1.ui.Command;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.Display;
 import com.codename1.ui.Form;
-import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
-import com.codename1.ui.Toolbar;
-import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.layouts.FlowLayout;
-import com.codename1.ui.util.Resources;
+import com.travolta.entites.Utilisateur;
 import com.travolta.services.ServiceUtilisateur;
-import java.util.Vector;
+import java.security.MessageDigest;
 
 /**
  *
  * @author hp
  */
-public class SignUpForm extends BaseForm {
 
-    public SignUpForm(Resources res) {
-        super(new BorderLayout());
-        Toolbar tb = new Toolbar(true);
-        setToolbar(tb);
-        tb.setUIID("Container");
-        getTitleArea().setUIID("Container");
-        Form previous = Display.getInstance().getCurrent();
-        tb.setBackCommand("", e -> previous.showBack());
-        setUIID("SignIn");
+       
+     public class SignUpForm extends Form {
+   
+
+    public SignUpForm( ) {
+        setTitle("Sign Up");
+        setLayout(BoxLayout.y());
+
+       TextField tfNom = new TextField("","Nom");
+        TextField tfPrenom = new TextField("","Prenom");
+         TextField tfAdresse = new TextField("","Adresse");
+          TextField tfMdp = new TextField("","mot de passe");
+            tfMdp.setConstraint(TextField.PASSWORD);
+       
+        Button btnValider = new Button("S'inscrire");
+        
+        btnValider.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                if ((tfNom.getText().length()==0) ||(tfPrenom.getText().length()==0) ||(tfAdresse.getText().length()==0) ||(tfMdp.getText().length()==0) )
+                    Dialog.show("Alert", "Please fill all the fields", new Command("OK"));
+                else
+                {
+                    try{
+                        
+                         // Hashing the password
+                        String password = tfMdp.getText();
+                        MessageDigest md = MessageDigest.getInstance("SHA-256");
+                        byte[] hashedPassword = md.digest(password.getBytes("UTF-8"));
+                        String hashedPasswordString = bytesToHex(hashedPassword);
+                        
+                        Utilisateur u = new Utilisateur(tfNom.getText(),tfPrenom.getText(),tfAdresse.getText(),hashedPasswordString);
+                        u.setRole("ROLE_USER");
+                        if ( new ServiceUtilisateur().addUtilisateur(u))
+                            Dialog.show("Success", "Connection accepted", new Command("Ok"));
+                        else
+                            Dialog.show("ERROR", "Server error", new Command("OK"));
+                    }catch(Exception e){
+                        Dialog.show("ERROR", "name and type must be string", new Command("Ok"));
+                    }
+                    
+                }
                 
-        TextField nom = new TextField("", "nom", 20, TextField.ANY);
-        TextField prenom = new TextField("", "nom", 20, TextField.ANY);
-        TextField adresse = new TextField("", "adresse", 20, TextField.EMAILADDR);
-        TextField mdp = new TextField("", "mdp", 20, TextField.PASSWORD);
-        
-           //Role 
-        //Vector 3ibara ala array 7atit fiha roles ta3na ba3d nzidouhom lel comboBox
-        Vector<String> vectorRole;
-        vectorRole = new Vector();
-        
-        vectorRole.add("ROLE_USER");
-        vectorRole.add("ROLE_ADMIN");
-        
-        ComboBox<String>role = new ComboBox<>(vectorRole);
-        
-        
-        
-        
-        nom.setSingleLineTextArea(false);
-        prenom.setSingleLineTextArea(false);
-        adresse.setSingleLineTextArea(false);
-        mdp.setSingleLineTextArea(false);
-        Button next = new Button("SignUp");
-        Button signIn = new Button("Sign In");
-        signIn.addActionListener(e -> new SignInForm(res).show());
-        signIn.setUIID("Link");
-        Label alreadHaveAnAccount = new Label("Already have an account?");
-        
-        Container content = BoxLayout.encloseY(
-                new Label("Sign Up", "LogoLabel"),
-                new FloatingHint(nom),
-                createLineSeparator(),
-                new FloatingHint(prenom),
-                createLineSeparator(),
-                new FloatingHint(adresse),
-                createLineSeparator(),
-                new FloatingHint(mdp),
-                createLineSeparator(),
-                role//sinon y7otich role fi form ta3 signup
-        );
-        content.setScrollableY(true);
-        add(BorderLayout.CENTER, content);
-        add(BorderLayout.SOUTH, BoxLayout.encloseY(
-                next,
-                FlowLayout.encloseCenter(alreadHaveAnAccount, signIn)
-        ));
-        next.requestFocus();
-        next.addActionListener((e) -> {
-            
-            ServiceUtilisateur.getInstance().signup(nom, prenom, adresse, mdp, role, res);
-            Dialog.show("Success","account is saved","OK",null);
-            new SignInForm(res).show();
+                
+            }
         });
+        
+        addAll(tfNom,tfPrenom,tfAdresse,tfMdp,btnValider);
+       // getToolbar().addMaterialCommandToLeftBar("", FontImage.MATERIAL_ARROW_BACK, e-> previous.showBack());
+       
+                
     }
     
+     private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
+
+    /**
+     * Helper method to convert bytes to hex string
+     */
+    private static String bytesToHex(byte[] bytes) {
+        char[] hexChars = new char[bytes.length * 2];
+        for (int j = 0; j < bytes.length; j++) {
+            int v = bytes[j] & 0xFF;
+            hexChars[j * 2] = HEX_ARRAY[v >>> 4];
+            hexChars[j * 2 + 1] = HEX_ARRAY[v & 0x0F];
+        }
+        return new String(hexChars);
+    }
 }
+     
+
+    
+
+   
